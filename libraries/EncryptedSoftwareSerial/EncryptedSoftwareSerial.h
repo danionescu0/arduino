@@ -6,11 +6,12 @@
 #else
  #include "WProgram.h"
 #endif
+
 #include "SoftwareSerial.h"
 
 class EncryptedSoftwareSerial {
     public:
-	EncryptedSoftwareSerial(uint8_t rx, uint8_t tx, int baud, uint8_t* key, String DEVICE_CODE);
+	    EncryptedSoftwareSerial(uint8_t rx, uint8_t tx, int baud, uint8_t* key, String DEVICE_CODE);
         boolean parseIncomming();
         String getDecrypted();
         void transmit(String message);
