@@ -54,6 +54,13 @@ void TextMotorCommandsInterpretter::outputDebug(boolean debug)
 	_debug = debug;
 }
 
+void TextMotorCommandsInterpretter::setCommandFormat(char startCharacter, char wordsBoundary, char endTerminator)
+{
+	char _startCharacter = startCharacter;
+	char _wordsBoundary = wordsBoundary;
+	char _endTerminator = endTerminator;
+}
+
 int TextMotorCommandsInterpretter::_getMotorDirection()
 {
     byte splitPosition = _message.indexOf(':', 2);
@@ -65,6 +72,7 @@ int TextMotorCommandsInterpretter::_getMotorPower()
 {
     byte splitPosition = _message.indexOf(':', 2);
     byte endPosition = _message.indexOf(' ');
+    Serial.print("endPosition=");Serial.println(endPosition);
 
     return _message.substring(splitPosition + 1, endPosition).toInt();
 }

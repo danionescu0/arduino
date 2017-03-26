@@ -12,6 +12,7 @@ class TextMotorCommandsInterpretter {
 		TextMotorCommandsInterpretter(int minX, int maxX, int minY, int maxY);
 		void analizeText(String buffer);
 		void outputDebug(boolean debug);
+		void setCommandFormat(char startCharacter, char wordsBoundary, char endTerminator);
 		float getPercentLeft();
 		float getPercentRight();
 		boolean getDirection();
@@ -23,6 +24,9 @@ class TextMotorCommandsInterpretter {
 		float _percentLeftMotor;
 		float _percentRightMotor;
 		boolean _debug;
+		char _startCharacter = 'M';
+		char _wordsBoundary = ':';
+		char _endTerminator = ';';
 		int _power;
 		int _minX;
 		int _maxX;
