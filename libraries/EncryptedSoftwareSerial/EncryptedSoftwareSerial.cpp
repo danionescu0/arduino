@@ -40,7 +40,6 @@ boolean EncryptedSoftwareSerial::parseIncomming()
 {
     if (_externalSerial.available() > 0) {
     	_externalSerial.readBytes(_buffer, 19);
-    	return true;
         if (isForThisDevice()) {
             return true;
         }
