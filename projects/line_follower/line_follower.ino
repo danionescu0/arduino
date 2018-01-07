@@ -1,3 +1,4 @@
+// CustomStepper https://playground.arduino.cc/Main/CustomStepper
 #include <CustomStepper.h>
  
 CustomStepper leftMotor(6, 7, 8, 9, (byte[]) {8, B1000, B1100, B0100, B0110, B0010, B0011, B0001, B1001}, 4075.7728395, 12, CCW);
