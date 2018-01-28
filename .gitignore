@@ -1,3 +1,5 @@
+\.idea
+*.pyc
 # Object files
 *.o
 *.ko
