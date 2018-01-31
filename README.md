@@ -55,9 +55,19 @@ In this project i'm using an arduino leonardo to simulate a possible USB attack 
 
 **Important!: You can defend against this kind of attack by:**
 
-* disabling USB ports
+​1. Disabling USB ports
 
-* locking your computer when your're away
+- for windows you can check this tutorial:http://www.thewindowsclub.com/disable-enable-usb-windowunlock-pen-drive-at-office-or-school-computer
+
+2. Whitelist USB devices:
+
+- for windows: https://superuser.com/questions/1152012/block-unblock-usb-devices-except-whitelist
+
+2. Lock your computer when your're not away
+
+3. Don't login as root (require passwords for installing anything)
+
+4. Keep your self up to date (automatic updates on)
 
 The arduino leonardo can act like a keyboard and mouse, so the attack will be mounted like this:
  
@@ -72,7 +82,7 @@ The arduino leonardo can act like a keyboard and mouse, so the attack will be mo
 **How will the attack work:**
  
 1. When the button is pressed, the leonardo will read the sd card using a sd card reader. 
-A special file containg keys and key combination will be present on the card. 
+A special file containing keys and key combination will be present on the card. 
 The file name is "hack.txt".
 
 The file can contain raw text, and it will passed to the keyboard just as it is. 
@@ -95,14 +105,19 @@ You can check all special keys here: https://www.arduino.cc/en/Reference/Keyboar
 
 2. Leonardo will read line by line, and interpret the commands and emulate the keys on the keyboard
 
-My "hack.py" contains a combination of keys that does the following (for UBUNTU linux):
+The "hack.txt" contains a combination of keys that does the following (for UBUNTU linux):
 
 a. opens a terminal
+
 b. opens a python file for creation using vi
+
 c. writes a python script inside that collects all text files inside of documents home folder
  and sends them over to a specified gmail address
+
 d. runs the file in the background
+
 e. deletes the file
+
 f. closes the terminal
 
 This whole thing runs in a few seconds and doesn't leave traces.
@@ -111,6 +126,7 @@ This whole thing runs in a few seconds and doesn't leave traces.
 
 a. assemble the arduino leonardo: 
 connect the button to digital pin 8, connect the card reader and the usb cable
+
 b. edit the hack.txt file and modify the following lines with email and passwords:
 ````
 smtp_user = 'sender_email_address'
@@ -118,8 +134,9 @@ smtp_pass = 'password'
 to_address = 'receiver_email_address'
 ````
 c. format the sd card using fat16 or fat32
+
 e. copy the hack.txt file
+
 e. ensure you have a test txt file in the Documents folder on your computer
+
 f. plug the arduiono and press the button
-
-
