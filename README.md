@@ -43,9 +43,15 @@ boolean direction motorCommandsInterpretter.getDirection();
 
 ## neopixel_ring_gyroscope
 
+Tilting the breadboard with the neopixel ring and a MPU6050 gyroscope will make led light up in the tilt direction.
+
 Full turorial here: https://www.instructables.com/id/Gyroscope-Fun-With-Neopixel-Ring/
 
 ![ifttt.png](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gyroscope/sketch_bb.png)
+
+## neopixel_ring_gestures
+
+Example usage of APDS9960 gesture sensor and a neopixel ring to animate a led rotation and change color.
 
 ## keyboard_exploit
 
