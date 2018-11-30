@@ -49,9 +49,32 @@ Full turorial here: https://www.instructables.com/id/Gyroscope-Fun-With-Neopixel
 
 ![ifttt.png](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gyroscope/sketch_bb.png)
 
+**Components:**
+* arduino pro mini
+* usb cable
+* MPU6050 gyroscope
+* neopixel led ring
+* male-male, male-female cables
+* breadboard
+* 5 V power supply for the led ring
+
 ## neopixel_ring_gestures
 
 Example usage of APDS9960 gesture sensor and a neopixel ring to animate a led rotation and change color.
+
+Using up - down gestures the leds will change color
+
+Using left - right gestures the leds will appeare move to left / right
+
+ 
+**Components:**
+* arduino UNO
+* usb cable
+* APDS9960 gesture sensor
+* neopixel led ring
+* male-female
+* breadboard
+* 5 V power supply for the led ring
 
 ## keyboard_exploit
 

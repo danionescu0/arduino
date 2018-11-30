@@ -1,3 +1,9 @@
+/**
+ * Libraries:
+ * https://github.com/adafruit/Adafruit_NeoPixel
+ * https://github.com/jrowberg/i2cdevlib
+ * https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050
+ */
 #include "I2Cdev.h"
 #include <Adafruit_NeoPixel.h>
 #include "MPU6050_6Axis_MotionApps20.h"
