@@ -66,6 +66,7 @@ Using up - down gestures the leds will change color
 
 Using left - right gestures the leds will appeare move to left / right
 
+![ifttt.png](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gestures/sketch_bb.png)
  
 **Components:**
 * arduino UNO
