@@ -43,15 +43,18 @@ boolean direction motorCommandsInterpretter.getDirection();
 
 ## neopixel_ring_gyroscope
 
+YouTube video: https://youtu.be/MFQ2PecTw8g
+
+Full tutorial here: https://www.instructables.com/id/Gyroscope-Fun-With-Neopixel-Ring/
+
 Tilting the breadboard with the neopixel ring and a MPU6050 gyroscope will make led light up in the tilt direction.
 
-Full turorial here: https://www.instructables.com/id/Gyroscope-Fun-With-Neopixel-Ring/
 
 ![ifttt.png](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gyroscope/sketch_bb.png)
 
 **Components:**
 * arduino pro mini
-* usb cable
+* USB cable
 * MPU6050 gyroscope
 * neopixel led ring
 * male-male, male-female cables
@@ -59,6 +62,10 @@ Full turorial here: https://www.instructables.com/id/Gyroscope-Fun-With-Neopixel
 * 5 V power supply for the led ring
 
 ## neopixel_ring_gestures
+
+YouTube video: https://youtu.be/EOPIJkmsgAo 
+
+Full tutorial: https://www.instructables.com/id/Controlling-a-Neopixel-Led-Ring-With-a-Gesture-Sen
 
 Example usage of APDS9960 gesture sensor and a neopixel ring to animate a led rotation and change color.
 
@@ -70,14 +77,43 @@ Using left - right gestures the leds will appeare move to left / right
  
 **Components:**
 * arduino UNO
-* usb cable
+* USB cable
 * APDS9960 gesture sensor
 * neopixel led ring
 * male-female
 * breadboard
-* 5 V power supply for the led ring
+* 5 V power supply for the led ring (4 AA batteries case)
+
+**The algorithm runs like this:**
+
+- initialize the neopixel and gesture sensor libraries 
+
+- create an array of led intensities called "ledStates". This array will contain 24 led intensities that 
+are arranged in a descending manner from 150 to 2
+
+- inside the main loop check if the interrupt pin has been modified if so it's time to change led's animation or color
+
+- the "handleGesture()" function checks the last gesture and calls the function "toggleColor" for UP -DOWN 
+gestures or set a global variable "ledDirection" for LEFT - RIGHT gestures
+
+- the "toggleColor()" function simply changes a global variable named "colorSelection" with one of the values 0, 1, 2
+
+- also inside the main loop function another function named "animateLeds();" is called. 
+This function checks if 100 milliseconds passed, and if so it rotates the leds using "rotateLeds()" 
+function and then redraws them
+
+- the "rotateLeds()" basically will rotates the leds in any of the direction (forward or backward) using 
+another array called "intermediateLedStates". For this first creates the new array and copies the old 
+led intensities on the new positions (increment the position or decrement it). 
+
+After that it overwrites the "ledStates" array with the "intermediateLedStates" so the process will
+ continue after another 100 milliseconds.
 
 ## keyboard_exploit
+
+YouTube video: https://youtu.be/PsYTfWgX3eU
+
+Full turorial: https://www.instructables.com/id/Arduino-Keyboard-Exploit-Demo-HID-and-Prevention/
 
 In this project i'm using an arduino leonardo to simulate a possible USB attack using HID 
 (humain interface device).
