@@ -2,11 +2,11 @@
  *  Libraries used by this project:
  *  
  *  GOFi2cOLED: https://github.com/hramrach/GOFi2cOLED
- *  Adafruit_MLX90614: https://github.com/adafruit/Adafruit-MLX90614-Library
+ *  Ultrasonic-HC-SR04: https://github.com/JRodrigoTech/Ultrasonic-HC-SR04
  */
 #include "Keyboard.h"
-#include <Wire.h>
-#include <GOFi2cOLED.h>
+#include "Wire.h"
+#include "GOFi2cOLED.h"
 #include "Ultrasonic.h"
 
 
@@ -44,7 +44,9 @@ void loop()
   if (shouldLockScreen()) {
      lockScreen();
      Serial.println("Lock screen");
-     delay(5000);
+     Serial.println("soth");
+     Serial.println("ta na na ");
+     
   }
   delay(100);
 }
@@ -58,7 +60,7 @@ bool shouldEnableLockTimer()
 {
    int allowedDistance = percentMaxDistanceChangedAllowed / 100 * getDistance();
    
-   return getTimer() > 1 && getDistance() > 10 && actualDistance - getDistance() > allowedDistance;
+   return getTimer() > 1 && getDistance() > 1 && actualDistance - getDistance() > allowedDistance;
 }
 
 void writeStatusData()
@@ -67,7 +69,15 @@ void writeStatusData()
     setDisplayText(1, "Timer:", String(getTimer()));
     setDisplayText(1, "ActualDistance:", String(actualDistance));
     int countDown = getTimer() - (millis() - maxDistanceDetectionTime) / 1000;
-    setDisplayText(1, "Locking:", shouldEnableLockTimer() && countDown >= 0 ? ".." + String(countDown) : "no");
+    String message = "";
+    if (shouldLockScreen()) {
+       message = "lock sent";
+    } else if (shouldEnableLockTimer() && countDown >= 0) {
+       message = ".." + String(countDown);
+    } else {
+      message = "no";
+    }
+    setDisplayText(1, "Locking: ", message);
 }
 
 void initializeDisplay()
@@ -81,7 +91,6 @@ void setDisplayText(byte fontSize, String label, String data)
 {
   GOFoled.setTextSize(fontSize);
   GOFoled.println(label + ":" + data);
-  //Serial.println(label + ":" + data);
 }
 
 void doDisplay()
