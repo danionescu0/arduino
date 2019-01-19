@@ -6,8 +6,11 @@
 
 A computer lock mechanism that activates shortly after the user leaves the computer (measures distance)
 
+Full tutorial here: https://www.instructables.com/id/Auto-Lock-Computer-System/
 
-![ifttt.png](https://github.com/danionescu0/arduino/blob/master/projects/computer_auto_lock/sketch_bb.png)
+YouTube video: https://youtu.be/b7RvvMIwWFs
+
+![ComputerAutoLock](https://github.com/danionescu0/arduino/blob/master/projects/computer_auto_lock/sketch_bb.jpg)
 
 ## neopixel_ring_gyroscope
 
@@ -18,7 +21,7 @@ Full tutorial here: https://www.instructables.com/id/Gyroscope-Fun-With-Neopixel
 Tilting the breadboard with the neopixel ring and a MPU6050 gyroscope will make led light up in the tilt direction.
 
 
-![ifttt.png](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gyroscope/sketch_bb.png)
+![Gyroscope](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gyroscope/sketch_bb.png)
 
 **Components:**
 * arduino pro mini
@@ -41,7 +44,7 @@ Using up - down gestures the leds will change color
 
 Using left - right gestures the leds will appeare move to left / right
 
-![ifttt.png](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gestures/sketch_bb.png)
+![NeopixelGestures](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gestures/sketch_bb.png)
  
 **Components:**
 * arduino UNO

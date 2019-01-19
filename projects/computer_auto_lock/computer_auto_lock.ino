@@ -44,9 +44,6 @@ void loop()
   if (shouldLockScreen()) {
      lockScreen();
      Serial.println("Lock screen");
-     Serial.println("soth");
-     Serial.println("ta na na ");
-     
   }
   delay(100);
 }
