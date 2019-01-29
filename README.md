@@ -178,6 +178,11 @@ e. ensure you have a test txt file in the Documents folder on your computer
 
 f. plug the arduiono and press the button
 
+## line_follower
+
+A plain line follower with two stepper motors
+
+![line_follower](https://github.com/danionescu0/arduino/blob/master/projects/line_follower/sketch_bb.jpg)
 
 # Libraries
 
