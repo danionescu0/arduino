@@ -184,6 +184,12 @@ A plain line follower with two stepper motors
 
 ![line_follower](https://github.com/danionescu0/arduino/blob/master/projects/line_follower/sketch_bb.jpg)
 
+## giroscope_led_controll
+
+This project will control led's using giroscope tilt.
+
+Full tutorial: https://www.instructables.com/id/Giroscope-led-controll-with-Arduino/
+
 # Libraries
 
 ### TextMotorCommandsInterpretter
