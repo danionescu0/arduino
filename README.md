@@ -10,12 +10,13 @@
 
 **5** [Line follower](#Line-follower) A plain line follower with two stepper motors
 
-**6** [TextMotorCommandsInterpretter](#TextMotorCommandsInterpretter) Given a string command it sets a robot speed and angle
+**6** [Gyroscope led controll](#Gyroscope-led-controll) This project will control led's using gyroscope tilt
+
 
 
 # Libraries
 
-**1** [Computer auto lock system](#Computer-auto-lock) A computer
+**1** [TextMotorCommandsInterpretter](#TextMotorCommandsInterpretter) Given a string command it sets a robot speed and angle
 
 
 
