@@ -1,8 +1,25 @@
 # Projects
 
+**1** [Computer auto lock system](#Computer-auto-lock) A computer lock mechanism that activates shortly after the user leaves the computer
 
-## computer_auto_lock
+**2** [Neopixel ring gyroscope](#Neopixel-ring-gyroscope) Tilting the breadboard with the neopixel ring and a MPU6050 gyroscope will make led light up in the tilt directionr
 
+**3** [Neopixel ring gestures](#Neopixel-ring-gestures) Example usage of APDS9960 gesture sensor and a neopixel ring to animate a led rotation and change color
+
+**4** [Keyboard exploit](#Keyboard-exploit) In this project i'm using an arduino leonardo to simulate a possible USB attack using HID (humain interface device)
+
+**5** [Line follower](#Line-follower) A plain line follower with two stepper motors
+
+**6** [TextMotorCommandsInterpretter](#TextMotorCommandsInterpretter) Given a string command it sets a robot speed and angle
+
+
+# Libraries
+
+**1** [Computer auto lock system](#Computer-auto-lock) A computer
+
+
+
+## Computer auto lock
 
 A computer lock mechanism that activates shortly after the user leaves the computer (measures distance)
 
@@ -12,13 +29,14 @@ YouTube video: https://youtu.be/b7RvvMIwWFs
 
 ![ComputerAutoLock](https://github.com/danionescu0/arduino/blob/master/projects/computer_auto_lock/sketch_bb.jpg)
 
-## neopixel_ring_gyroscope
+## Neopixel ring gyroscope
+
+Tilting the breadboard with the neopixel ring and a MPU6050 gyroscope will make led light up in the tilt direction.
 
 YouTube video: https://youtu.be/MFQ2PecTw8g
 
 Full tutorial here: https://www.instructables.com/id/Gyroscope-Fun-With-Neopixel-Ring/
 
-Tilting the breadboard with the neopixel ring and a MPU6050 gyroscope will make led light up in the tilt direction.
 
 
 ![Gyroscope](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gyroscope/sketch_bb.png)
@@ -32,17 +50,18 @@ Tilting the breadboard with the neopixel ring and a MPU6050 gyroscope will make 
 * breadboard
 * 5 V power supply for the led ring
 
-## neopixel_ring_gestures
-
-YouTube video: https://youtu.be/EOPIJkmsgAo 
-
-Full tutorial: https://www.instructables.com/id/Controlling-a-Neopixel-Led-Ring-With-a-Gesture-Sen
+## Neopixel ring gestures
 
 Example usage of APDS9960 gesture sensor and a neopixel ring to animate a led rotation and change color.
 
 Using up - down gestures the leds will change color
 
 Using left - right gestures the leds will appeare move to left / right
+
+YouTube video: https://youtu.be/EOPIJkmsgAo 
+
+Full tutorial: https://www.instructables.com/id/Controlling-a-Neopixel-Led-Ring-With-a-Gesture-Sen
+
 
 ![NeopixelGestures](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gestures/sketch_bb.png)
  
@@ -80,14 +99,13 @@ led intensities on the new positions (increment the position or decrement it).
 After that it overwrites the "ledStates" array with the "intermediateLedStates" so the process will
  continue after another 100 milliseconds.
 
-## keyboard_exploit
+## Keyboard exploit
+
+In this project i'm using an arduino leonardo to simulate a possible USB attack using HID (humain interface device).
 
 YouTube video: https://youtu.be/PsYTfWgX3eU
 
 Full turorial: https://www.instructables.com/id/Arduino-Keyboard-Exploit-Demo-HID-and-Prevention/
-
-In this project i'm using an arduino leonardo to simulate a possible USB attack using HID 
-(humain interface device).
 
 
 **Important!: You can defend against this kind of attack by:**
@@ -178,17 +196,22 @@ e. ensure you have a test txt file in the Documents folder on your computer
 
 f. plug the arduiono and press the button
 
-## line_follower
+## Line follower
 
 A plain line follower with two stepper motors
 
 ![line_follower](https://github.com/danionescu0/arduino/blob/master/projects/line_follower/sketch_bb.jpg)
 
-## giroscope_led_controll
+YouTube video: https://youtu.be/oPWKSHsfMBM
 
-This project will control led's using giroscope tilt.
+
+## Gyroscope led controll
+
+This project will control led's using gyroscope tilt.
 
 Full tutorial: https://www.instructables.com/id/Giroscope-led-controll-with-Arduino/
+
+YouTube video: https://youtu.be/lYH1H_nWLz4
 
 # Libraries
 
@@ -206,6 +229,9 @@ left motor 17% and right motor 32%, and direction forward
 "M:44:19;" means (44 to the right) and (19 power) it will translate to:
 left motor 38%, right motor 5% and direction forward
 
+YouTube video: https://youtu.be/6FrEs4C9D-Y
+
+Full tutorial here: https://www.instructables.com/id/Android-Controlled-Robot-Spy-Camera/
 
 Usage example: 
 
