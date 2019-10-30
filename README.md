@@ -12,6 +12,7 @@
 
 **6** [Gyroscope led controll](#Gyroscope-led-controll) This project will control led's using gyroscope tilt
 
+**7** [ZenWheelsRemote](#Zenwheels-remove-controll) This project will controll ZenWheels microcar with a gyroscope (work in progress)
 
 
 # Libraries
