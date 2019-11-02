@@ -12,7 +12,7 @@
 
 **6** [Gyroscope led controll](#Gyroscope-led-controll) This project will control led's using gyroscope tilt
 
-**7** [ZenWheelsRemote](#Zenwheels-remove-controll) This project will controll ZenWheels microcar with a gyroscope (work in progress)
+**7** [ZenWheelsRemote](#Zenwheels-remote-controll) This project will controll ZenWheels microcar with a gyroscope (work in progress)
 
 
 # Libraries
@@ -214,6 +214,12 @@ This project will control led's using gyroscope tilt.
 Full tutorial: https://www.instructables.com/id/Giroscope-led-controll-with-Arduino/
 
 YouTube video: https://youtu.be/lYH1H_nWLz4
+
+## Zenwheels remote controll
+
+Work in progress. 
+
+Now the sketch basically controlls the angle and direction of the car. Needs the fritzing schematic, and youtube demo
 
 # Libraries
 
