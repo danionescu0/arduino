@@ -14,6 +14,8 @@
 
 **7** [ZenWheelsRemote](#Zenwheels-remote-controll) This project will controll ZenWheels microcar with a gyroscope (work in progress)
 
+**8** [CameraWebUpload](#Camera-web-upload) Uses the ESP32-cam to take pictures regularry and upload them using an api 
+
 
 # Libraries
 
@@ -220,6 +222,12 @@ YouTube video: https://youtu.be/lYH1H_nWLz4
 Work in progress. 
 
 Now the sketch basically controlls the angle and direction of the car. Needs the fritzing schematic, and youtube demo
+
+## Camera web upload
+
+Work in progress:
+
+A goog tutorial here: https://randomnerdtutorials.com/esp32-cam-video-streaming-face-recognition-arduino-ide/
 
 # Libraries
 

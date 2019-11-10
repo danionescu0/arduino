@@ -75,14 +75,14 @@ void moveZwheelsCar(byte angle, int speed)
     byte resultAngle;
     int resultSpeed;
     if (angle >= 90) {
-      resultAngle = map(angle, 91, 180, 1, 63);    
+      resultAngle = map(angle, 91, 180, 1, 60);    
     } else if (angle < 90) {
-      resultAngle = map(angle, 1, 90, 63, 126);
+      resultAngle = map(angle, 1, 90, 60, 120);
     }
     if (speed > 0) {
-      resultSpeed = map(speed, 0, 90, 0, 63);    
+      resultSpeed = map(speed, 0, 90, 0, 60);    
     } else if (speed < 0) {
-      resultSpeed = map(speed, 0, -90, 126, 64);
+      resultSpeed = map(speed, 0, -90, 120, 60);
     }
     Serial.print("actualAngle=");Serial.print(angle);Serial.print("; ");
     Serial.print("actualSpeed=");Serial.print(resultSpeed);Serial.println("; ");
