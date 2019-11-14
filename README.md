@@ -219,15 +219,33 @@ YouTube video: https://youtu.be/lYH1H_nWLz4
 
 ## Zenwheels remote controll
 
-Work in progress. 
 
-Now the sketch basically controlls the angle and direction of the car. Needs the fritzing schematic, and youtube demo
+Now the sketch controlls the angle and direction of the car. 
+
+Components: Arduino pro mini, bluetooth HC-05, MPU6050 gyroscope, breadboard, wires, power source
+
+YouTube video: https://youtu.be/ih9J1sDsSLk
+
+How to pair to a bluetooth slave module: http://phillipecantin.blogspot.com/2014/08/hc-05-bluetooth-link-with-zero-code.html
+
+Steps:
+
+- use your android phone to pair with the car and extract the car address
+
+- set the bluetooth module in master mode, and set it to pair with the ZenWheels microcar
+
+- assemble the arduino, bluetooth(pins 10 an 11) and MUP6050 (pins A5, A5) on the breadboard
+
+- upload the code to the arduino
+
+- power up the car (it could take a few minutes for the bluetooth module to connect)
+
 
 ## Camera web upload
 
 Work in progress:
 
-A goog tutorial here: https://randomnerdtutorials.com/esp32-cam-video-streaming-face-recognition-arduino-ide/
+A good tutorial here: https://randomnerdtutorials.com/esp32-cam-video-streaming-face-recognition-arduino-ide/
 
 # Libraries
 
