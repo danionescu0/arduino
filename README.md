@@ -46,13 +46,13 @@ Full tutorial here: https://www.instructables.com/id/Gyroscope-Fun-With-Neopixel
 ![Gyroscope](https://github.com/danionescu0/arduino/blob/master/projects/neopixel_ring_gyroscope/sketch_bb.png)
 
 **Components:**
-* arduino pro mini
+* Arduino pro mini
 * USB cable
 * MPU6050 gyroscope
 * neopixel led ring
 * male-male, male-female cables
 * breadboard
-* 5 V power supply for the led ring
+* 5V power supply for the led ring
 
 ## Neopixel ring gestures
 
@@ -202,7 +202,9 @@ f. plug the arduiono and press the button
 
 ## Line follower
 
-A plain line follower with two stepper motors
+A plain line follower with two stepper motors.
+
+This sketch uses PID algrithm (https://blog.opticontrols.com/archives/344)
 
 ![line_follower](https://github.com/danionescu0/arduino/blob/master/projects/line_follower/sketch_bb.jpg)
 
@@ -219,8 +221,9 @@ YouTube video: https://youtu.be/lYH1H_nWLz4
 
 ## Zenwheels remote controll
 
+The sketch controlls the angle and direction of the car using MPU6050 gyroscope
 
-Now the sketch controlls the angle and direction of the car. 
+![Zenwheels remote controll](https://github.com/danionescu0/arduino/blob/master/projects/zen_wheels_remote/sketch_bb.jpg) 
 
 Components: Arduino pro mini, bluetooth HC-05, MPU6050 gyroscope, breadboard, wires, power source
 
@@ -234,7 +237,7 @@ Steps:
 
 - set the bluetooth module in master mode, and set it to pair with the ZenWheels microcar
 
-- assemble the arduino, bluetooth(pins 10 an 11) and MUP6050 (pins A5, A5) on the breadboard
+- assemble the arduino, bluetooth(pins 10 an 11) and MPU6050 (pins A4, A5) on the breadboard
 
 - upload the code to the arduino
 

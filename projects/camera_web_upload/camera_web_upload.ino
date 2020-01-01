@@ -110,4 +110,3 @@ void upload(camera_fb_t *fb) {
     
     esp_http_client_cleanup(httpClient);
 }
-
