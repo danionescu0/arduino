@@ -4,10 +4,9 @@
  * https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050
  */
 #include "I2Cdev.h"
-#include <Adafruit_NeoPixel.h>
 #include "MPU6050_6Axis_MotionApps20.h"
 #include "Wire.h"
-#include <SoftwareSerial.h>
+#include "SoftwareSerial.h"
 
 const int MAX_ANGLE = 45;
 const byte commandStering = 129;
@@ -33,10 +32,10 @@ MPU6050 mpu;
 
 void setup() 
 {
-  Serial.begin(9600);
-  BTserial.begin(38400);
-  Serial.println("Program started");
-  initialization = initializeGyroscope(); 
+      Serial.begin(9600);
+      BTserial.begin(38400);
+      Serial.println("Program started");
+      initialization = initializeGyroscope();
 }
 
 void loop() {
