@@ -16,6 +16,7 @@
 
 **8** [CameraWebUpload](#Camera-web-upload) Uses the ESP32-cam to take pictures regularry and upload them using an api 
 
+**9** [HASSGeigerIntegration](#HASS-geiger-integration) show arduino geiger counter readings on Home assistant (https://www.home-assistant.io/)
 
 # Libraries
 
@@ -249,6 +250,63 @@ Steps:
 Work in progress:
 
 A good tutorial here: https://randomnerdtutorials.com/esp32-cam-video-streaming-face-recognition-arduino-ide/
+
+## HASS geiger integration
+
+This project will integrate a basic arduino geiger counter (one that supports serial logging of CPM) into HomeAssistant.
+
+Home assistant is a great platform for home automation. If you don't know the platform you shoul check it out:) https://www.home-assistant.io/
+
+There are many DYI arduino geiger counters:
+- https://create.arduino.cc/projecthub/EDUcentrum/geiger-counter-with-arduino-uno-2cf621
+- https://rhelectronics.net/store/radiation-detector-geiger-counter-diy-kit-second-edition.html
+- https://www.tindie.com/products/rhgeiger/arduino-ide-geiger-counter-diy-kit-ver2-with-lcd/
+
+I've got my self an aready assembled DYI product and i've purchased the tube separatly (SBM-20). The important thing here
+is that your counter supports logging via the serial line. Mine does, it sends the CPM value periodically.
+
+The integration with the Home assistant platform is done easily via MQTT. 
+You will need your own server or a public one (default in the sketch).
+
+The integation is done with NodeMCU board (https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/). 
+The board is very cheap (around 4$ on ebay) and has WIFI and arduino IDE compatibility, you can programm it in C by
+default.
+
+Minumum configuration on the sketch implies the WIFI SSID and password:
+
+````
+#define STASSID "" // Replace with your WIFI SSID
+#define STAPSK  "" // Replace with your WIFI password
+````
+
+Also you can configure a sketch password (if you want to use OTA) or a different MQTT server:
+````
+#define SKETCHPASS "thepass" // Replace with your WIFI password
+#define MQTT_SERVER "broker.hivemq.com" // OR replace with yout MQTT sderver
+```` 
+By default the sketch using OTA (https://randomnerdtutorials.com/esp8266-ota-updates-with-arduino-ide-over-the-air/), 
+if your're not familiar with the concept or if you don't want to use it 
+
+Next configure the configuration.yaml in your HASS, replace the broker if you have our own MQTT server:
+````
+mqtt:
+  broker: broker.hivemq.com
+  discovery: true
+  discovery_prefix: ha
+````
+then under sensor add this:
+````
+sensor:
+  #... your other sensors here
+  ...
+  - platform: mqtt
+    name: "Radiation"
+    state_topic: "ha/radiation"
+    unit_of_measurement: 'cpm'
+    unique_id: "radiation"
+    value_template: "{{ value_json.radiation }}"    
+````
+Restart the Home assistant and that's it
 
 # Libraries
 

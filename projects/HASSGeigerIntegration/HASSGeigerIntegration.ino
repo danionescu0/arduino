@@ -13,7 +13,7 @@
 #endif
 
 #define SKETCHPASS "thepass" // Replace with your WIFI password
-#define MQTT_SERVER "192.168.1.33" // replace with yout MQTT sderver
+#define MQTT_SERVER "broker.hivemq.com" // OR replace with yout MQTT sderver
 
 
 const char* ssid = STASSID;
@@ -30,8 +30,7 @@ void setup() {
     geigerCounter.begin(9600);
     Serial.println("Booting");
     startOTA(); // comment this line and  if you dont't want OTA
-    pinMode(LED_BUILTIN, OUTPUT);
-    MQTT_connect();
+    connectMQTT();
 }
 
 void loop() {
@@ -47,14 +46,14 @@ void handleNewReading(int reading) {
     }
     Serial.println(reading);
     Serial.println(String(reading));
-    char buf[50]; //make this the size of the String
+    char buf[50];
     String message = "{\"radiation\": " + String(reading) + "}";
     Serial.println(message);
     message.toCharArray(buf, message.length() + 1);
     radiationTopic.publish(buf);
 }
 
-void MQTT_connect() {
+void connectMQTT() {
     int8_t ret;
     if (mqtt.connected()) {
         return;
@@ -65,7 +64,7 @@ void MQTT_connect() {
          Serial.println(mqtt.connectErrorString(ret));
          Serial.println("Retrying MQTT connection in 5 seconds...");
          mqtt.disconnect();
-         delay(5000);  // wait 5 seconds
+         delay(5000);
          retries--;
          if (retries == 0) {
            while (1);
@@ -113,7 +112,6 @@ void startOTA() {
         }
     });
     ArduinoOTA.begin();
-    Serial.println("Ready");
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
 }
