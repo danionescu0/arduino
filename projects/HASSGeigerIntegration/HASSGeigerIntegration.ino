@@ -8,12 +8,13 @@
 
 
 #ifndef STASSID
-#define STASSID "" // Replace with your WIFI SSID
-#define STAPSK  "" // Replace with your WIFI password
+#define STASSID "ssid_here" // Replace with your WIFI SSID
+#define STAPSK  "pass_here" // Replace with your WIFI password
 #endif
 
-#define SKETCHPASS "thepass" // Replace with your WIFI password
-#define MQTT_SERVER "broker.hivemq.com" // OR replace with yout MQTT sderver
+#define SKETCHPASS "thepass" // OTA upload protection ;replace with your own
+#define MQTT_SERVER "broker.hivemq.com" // replace with yout MQTT sderver if needed
+#define CPM_TO_MICROSIEVERTS 0.0056 // for SBM-20 geiger tube
 
 
 const char* ssid = STASSID;
@@ -47,7 +48,7 @@ void handleNewReading(int reading) {
     Serial.println(reading);
     Serial.println(String(reading));
     char buf[50];
-    String message = "{\"radiation\": " + String(reading) + "}";
+    String message = "{\"radiation\": " + String(reading * CPM_TO_MICROSIEVERTS) + "}";
     Serial.println(message);
     message.toCharArray(buf, message.length() + 1);
     radiationTopic.publish(buf);
