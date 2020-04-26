@@ -23,6 +23,13 @@
 **1** [TextMotorCommandsInterpretter](#TextMotorCommandsInterpretter) Given a string command it sets a robot speed and angle
 
 
+# BOARDS
+
+Pinouts, details
+
+**1** [NodeMCU](#NodeMCU)
+
+**2** [Arduino Pro Mini](#Arduino-pro-mini)
 
 ## Computer auto lock
 
@@ -253,7 +260,9 @@ A good tutorial here: https://randomnerdtutorials.com/esp32-cam-video-streaming-
 
 ## HASS geiger integration
 
-This project will integrate a basic arduino geiger counter (one that supports serial logging of CPM) into HomeAssistant.
+YouTube video: https://youtu.be/oPWKSHsfMBM
+
+This project will integrate a arduino geiger counter (one that supports serial logging of CPM) into HomeAssistant.
 
 Home assistant is a great platform for home automation. If you don't know the platform you shoul check it out:) https://www.home-assistant.io/
 
@@ -271,6 +280,15 @@ You will need your own server or a public one (default in the sketch).
 The integation is done with NodeMCU board (https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/). 
 The board is very cheap (around 4$ on ebay) and has WIFI and arduino IDE compatibility, you can programm it in C by
 default.
+
+Pinout:
+
+- power Node Mcu through micro USB
+- VIN goes to geiger counter + 
+- GND goest to geiger counter -
+- NodeMCU D7 (pin 13) goes to geiger TX 
+- NodeMCU D8 (pin 15) goes to geiger RX
+ 
 
 Minumum configuration on the sketch implies the WIFI SSID and password:
 
@@ -302,11 +320,15 @@ sensor:
   - platform: mqtt
     name: "Radiation"
     state_topic: "ha/radiation"
-    unit_of_measurement: 'cpm'
+    unit_of_measurement: 'mSv'
     unique_id: "radiation"
     value_template: "{{ value_json.radiation }}"    
 ````
-Restart the Home assistant and that's it
+Restart the Home assistant and that's it.
+
+Troubleshooting:
+- if you're using the free MQTT server from above and your're getting noise it means some one else it's using the topic.
+Change the topic to a different name both in the arduino sketch and in HASS
 
 # Libraries
 
@@ -351,3 +373,11 @@ boolean direction motorCommandsInterpretter.getDirection();
 // percentRightMotor will be 0.32
 // direction will be true
 ````
+
+#Boards
+
+## NodeMCU
+![Nodemcu](https://github.com/danionescu0/arduino/blob/master/boards/nodemcu.jpg) 
+
+## Arduino pro mini
+![Arduino pro mini](https://github.com/danionescu0/arduino/blob/master/boards/arduinopromini.png)
