@@ -3,6 +3,7 @@
 #include <WiFi.h>
 
 #define CAMERA_MODEL_AI_THINKER
+#define PICTURE_INTERVAL_MS 10000
 #include "camera_pins.h"
 
 const char* ssid = "wifi_network_name";
@@ -79,7 +80,7 @@ void setup() {
 }
 
 void loop() {
-    delay(10000);
+    delay(PICTURE_INTERVAL_MS);
     camera_fb_t *fb = NULL;
     esp_err_t res = ESP_OK;
     fb = esp_camera_fb_get();

@@ -1,3 +1,16 @@
+# Prerequisites
+
+1. Arduino IDE installed on your system
+Download link: https://www.arduino.cc/en/main/software
+
+Boards pinouts, details:
+
+**1** [NodeMCU](#NodeMCU)
+
+**2** [Arduino Pro Mini](#Arduino-pro-mini)
+
+**3** [Esp32-camera](#Esp32-camera)
+
 # Projects
 
 **1** [Computer auto lock system](#Computer-auto-lock) A computer lock mechanism that activates shortly after the user leaves the computer
@@ -22,14 +35,6 @@
 
 **1** [TextMotorCommandsInterpretter](#TextMotorCommandsInterpretter) Given a string command it sets a robot speed and angle
 
-
-# BOARDS
-
-Pinouts, details
-
-**1** [NodeMCU](#NodeMCU)
-
-**2** [Arduino Pro Mini](#Arduino-pro-mini)
 
 ## Computer auto lock
 
@@ -254,13 +259,18 @@ Steps:
 
 ## Camera web upload
 
-Work in progress:
+Configure the sketch before the upload with your WIFI credentials, and the upload endpoint
+````
+const char* ssid = "wifi_network_name";
+const char* password = "wifi_password";
+const char* uploadUrl = "http://endpoint_url";
+````
 
 A good tutorial here: https://randomnerdtutorials.com/esp32-cam-video-streaming-face-recognition-arduino-ide/
 
 ## HASS geiger integration
 
-YouTube video: https://youtu.be/oPWKSHsfMBM
+YouTube video: https://youtu.be/auRfZ5q2SrY
 
 This project will integrate a arduino geiger counter (one that supports serial logging of CPM) into HomeAssistant.
 
@@ -379,5 +389,11 @@ boolean direction motorCommandsInterpretter.getDirection();
 ## NodeMCU
 ![Nodemcu](https://github.com/danionescu0/arduino/blob/master/boards/nodemcu.jpg) 
 
+Instalation in Arduino IDE: https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/
+
 ## Arduino pro mini
 ![Arduino pro mini](https://github.com/danionescu0/arduino/blob/master/boards/arduinopromini.png)
+
+## Esp32 camera
+
+Instalation in Arduino IDE: https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-mac-and-linux-instructions/
