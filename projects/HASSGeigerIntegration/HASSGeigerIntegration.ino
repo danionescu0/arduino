@@ -7,6 +7,7 @@
 #include "Adafruit_MQTT_Client.h"
 
 
+
 #ifndef STASSID
 #define STASSID "ssid_here" // Replace with your WIFI SSID
 #define STAPSK  "pass_here" // Replace with your WIFI password
@@ -29,7 +30,9 @@ Adafruit_MQTT_Publish radiationTopic = Adafruit_MQTT_Publish(&mqtt, "ha/radiatio
 void setup() {
     Serial.begin(9600);
     geigerCounter.begin(9600);
-    Serial.println("Booting");
+    Serial.println("Booting2");
+    WiFi.mode(WIFI_STA);
+    WiFi.begin(ssid, password);    
     startOTA(); // comment this line and  if you dont't want OTA
     connectMQTT();
 }
@@ -75,8 +78,6 @@ void connectMQTT() {
 }
 
 void startOTA() {
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
     while (WiFi.waitForConnectResult() != WL_CONNECTED) {
       Serial.println("Connection Failed! Rebooting...");
       delay(5000);
