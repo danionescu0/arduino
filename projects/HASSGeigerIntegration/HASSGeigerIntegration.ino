@@ -7,16 +7,13 @@
 #include "Adafruit_MQTT_Client.h"
 
 
+#define ENABLE_OTA // comment this line if you don't want OTA
 
-#ifndef STASSID
-#define STASSID "ssid_here" // Replace with your WIFI SSID
-#define STAPSK  "pass_here" // Replace with your WIFI password
-#endif
-
+#define STASSID "ssid" // Replace with your WIFI SSID
+#define STAPSK  "pass" // Replace with your WIFI password
 #define SKETCHPASS "thepass" // OTA upload protection ;replace with your own
-#define MQTT_SERVER "broker.hivemq.com" // replace with yout MQTT sderver if needed
+#define MQTT_SERVER "broker.hivemq.com" // replace with yout MQTT server if needed, broker.hivemq.com is a free MQTT broker
 #define CPM_TO_MICROSIEVERTS 0.0056 // for SBM-20 geiger tube
-
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
@@ -30,15 +27,20 @@ Adafruit_MQTT_Publish radiationTopic = Adafruit_MQTT_Publish(&mqtt, "ha/radiatio
 void setup() {
     Serial.begin(9600);
     geigerCounter.begin(9600);
-    Serial.println("Booting2");
+    Serial.println("Booting");
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);    
-    startOTA(); // comment this line and  if you dont't want OTA
-    connectMQTT();
+    #ifdef ENABLE_OTA
+    startOTA();
+    Serial.println("OTA enabled");
+    #endif
 }
 
 void loop() {
-    ArduinoOTA.handle(); // comment this line if you dont't want OTA
+    #ifdef ENABLE_OTA
+    ArduinoOTA.handle(); 
+    #endif
+    MQTT_connect();    
     if (geigerCounter.available()) {
         handleNewReading(geigerCounter.parseInt());
     }
@@ -48,8 +50,6 @@ void handleNewReading(int reading) {
     if (reading == 0) {
         return;// parseInt bug
     }
-    Serial.println(reading);
-    Serial.println(String(reading));
     char buf[50];
     String message = "{\"radiation\": " + String(reading * CPM_TO_MICROSIEVERTS) + "}";
     Serial.println(message);
@@ -57,22 +57,18 @@ void handleNewReading(int reading) {
     radiationTopic.publish(buf);
 }
 
-void connectMQTT() {
+void MQTT_connect() {
     int8_t ret;
     if (mqtt.connected()) {
-        return;
+      return;
     }
     Serial.print("Connecting to MQTT... ");
-    uint8_t retries = 3;
+  
     while ((ret = mqtt.connect()) != 0) { // connect will return 0 for connected
          Serial.println(mqtt.connectErrorString(ret));
          Serial.println("Retrying MQTT connection in 5 seconds...");
          mqtt.disconnect();
-         delay(5000);
-         retries--;
-         if (retries == 0) {
-           while (1);
-         }
+         delay(5000); 
     }
     Serial.println("MQTT Connected!");
 }

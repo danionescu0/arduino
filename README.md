@@ -312,8 +312,11 @@ Also you can configure a sketch password (if you want to use OTA) or a different
 #define SKETCHPASS "thepass" // Replace with your WIFI password
 #define MQTT_SERVER "broker.hivemq.com" // OR replace with yout MQTT sderver
 ```` 
-By default the sketch using OTA (https://randomnerdtutorials.com/esp8266-ota-updates-with-arduino-ide-over-the-air/), 
-if your're not familiar with the concept or if you don't want to use it 
+By default the sketch enables OTA (https://randomnerdtutorials.com/esp8266-ota-updates-with-arduino-ide-over-the-air/), 
+if your're not familiar with the concept or if you don't want to use it  please comment this line
+````
+#define ENABLE_OTA // comment this line if you don't want OTA
+````
 
 Next configure the configuration.yaml in your HASS, replace the broker if you have our own MQTT server:
 ````
