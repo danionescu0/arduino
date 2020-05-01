@@ -276,6 +276,8 @@ This project will integrate a arduino geiger counter (one that supports serial l
 
 Home assistant is a great platform for home automation. If you don't know the platform you shoul check it out:) https://www.home-assistant.io/
 
+![Diagram](https://github.com/danionescu0/arduino/blob/master/projects/HASSGeigerIntegration/diagram.jpg) 
+
 There are many DYI arduino geiger counters:
 - https://create.arduino.cc/projecthub/EDUcentrum/geiger-counter-with-arduino-uno-2cf621
 - https://rhelectronics.net/store/radiation-detector-geiger-counter-diy-kit-second-edition.html
