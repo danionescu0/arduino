@@ -320,6 +320,8 @@ if your're not familiar with the concept or if you don't want to use it  please 
 #define ENABLE_OTA // comment this line if you don't want OTA
 ````
 
+If you dont' have "filed editor" in the meniu follow this guide: https://www.home-assistant.io/getting-started/configuration/
+
 Next configure the configuration.yaml in your HASS, replace the broker if you have our own MQTT server:
 ````
 mqtt:
@@ -392,9 +394,9 @@ boolean direction motorCommandsInterpretter.getDirection();
 #Boards
 
 ## NodeMCU
-![Nodemcu](https://github.com/danionescu0/arduino/blob/master/boards/nodemcu.jpg) 
+![Nodemcu](https://github.com/danionescu0/arduino/blob/master/boards/nodemcu/nodemcu.jpg) 
 
-Instalation in Arduino IDE: https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/
+For instalation in Arduino IDE follow the steps from /boards/nodemcu: https://github.com/danionescu0/arduino/tree/master/boards/nodemcu
 
 ## Arduino pro mini
 ![Arduino pro mini](https://github.com/danionescu0/arduino/blob/master/boards/arduinopromini.png)
