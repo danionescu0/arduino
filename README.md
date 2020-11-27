@@ -11,6 +11,8 @@ Boards pinouts, details:
 
 **3** [Esp32-camera](#Esp32-camera)
 
+**4** [Arduino Nano 33 BLE Sense](#Arduino-Nano-33-BLE-Sense)
+
 # Projects
 
 **1** [Computer auto lock system](#Computer-auto-lock) A computer lock mechanism that activates shortly after the user leaves the computer
@@ -273,6 +275,7 @@ A good tutorial here: https://randomnerdtutorials.com/esp32-cam-video-streaming-
 YouTube video: https://youtu.be/auRfZ5q2SrY
 
 This project will integrate a arduino geiger counter (one that supports serial logging of CPM) into HomeAssistant.
+Full tutorial here: https://www.instructables.com/Home-Assistant-Geiger-Counter-Integration/
 
 Home assistant is a great platform for home automation. If you don't know the platform you shoul check it out:) https://www.home-assistant.io/
 
@@ -347,6 +350,11 @@ Troubleshooting:
 - if you're using the free MQTT server from above and your're getting noise it means some one else it's using the topic.
 Change the topic to a different name both in the arduino sketch and in HASS
 
+### Gesture classifier
+
+This example is from: https://blog.tensorflow.org/2019/11/how-to-get-started-with-machine.html
+It's trained to recognize gestures 0-4 written in the air from top left to bottom left
+
 # Libraries
 
 ### TextMotorCommandsInterpretter
@@ -402,5 +410,9 @@ For instalation in Arduino IDE follow the steps from /boards/nodemcu: https://gi
 ![Arduino pro mini](https://github.com/danionescu0/arduino/blob/master/boards/arduinopromini.png)
 
 ## Esp32 camera
-
+![esp32-camera](https://github.com/danionescu0/arduino/blob/master/boards/esp32-camera.jpg)
 Instalation in Arduino IDE: https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-mac-and-linux-instructions/
+
+## Arduino Nano 33 BLE Sense
+![Arduino-nano-33-ble-sense](https://github.com/danionescu0/arduino/blob/master/boards/arduino-nano-33-ble-sense.jpg)
+Overview: https://gilberttanner.com/blog/arduino-nano-33-ble-sense-overview
