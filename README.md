@@ -33,6 +33,8 @@ Boards pinouts, details:
 
 **9** [HASSGeigerIntegration](#HASS-geiger-integration) show arduino geiger counter readings on Home assistant (https://www.home-assistant.io/)
 
+**10** [GestureClassifier](#Gesture-classifier) capture, train & predict gestures using Arduino nano BLE sensnse (work in progress)
+
 # Libraries
 
 **1** [TextMotorCommandsInterpretter](#TextMotorCommandsInterpretter) Given a string command it sets a robot speed and angle
@@ -352,8 +354,13 @@ Change the topic to a different name both in the arduino sketch and in HASS
 
 ### Gesture classifier
 
-This example is from: https://blog.tensorflow.org/2019/11/how-to-get-started-with-machine.html
-It's trained to recognize gestures 0-4 written in the air from top left to bottom left
+- work in progress -
+
+To train use gesture_capture sketch, the sketch uses a SD card reader to save each gesture in a file on the SD car: 1.csv, 2.csv etc
+
+This sketch recognizes gestures using Tesorflow lite for microcontrollers, still work in progress.
+
+Will use BLE to transmit data about the gesture. 
 
 # Libraries
 
