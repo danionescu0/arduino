@@ -6,54 +6,65 @@
 *  based on example from https://github.com/arduino/ArduinoTensorFlowLiteTutorials
 *  
 * PINOUT
-* MOSI   -  pin 11
+* 
+* CARD READER 5V variant
+* MOSI   -  pin 11  
 * MISO   -  pin 12
-*  CLK    -  pin 13
-*  CS     -  pin 4
-*  GND    -  GND
-*  VCC    -  VIN
- */
+* CLK    -  pin 13
+* CS     -  pin 4
+* GND    -  GND
+* VCC    -  VIN
+* 
+* LED
+* D2     -  pin through a 220ohms resistor
+* GND    -  GND
+*/
 
 #include <SPI.h>
 #include <SD.h>
 #include <Arduino_LSM9DS1.h>
-
+#include <Arduino_APDS9960.h>
 
 const float accelerationThreshold = 1.9; // threshold of significant in G's
 const int numSamples = 119;
 const int sdChipSelect = 4;
+const int ledPin = 2;
 
 int samplesRead = numSamples;
+int currentGesture;
 byte gestureNr = 1;
-String printBuffer = "";
+byte fileNr = 1;
+byte printBufferCursor = 0;
+String printBuffer[9] = {};
 File datafile;
 
 
 void setup() {
     Serial.begin(9600);
-    while (!Serial);
-  
+    //while (!Serial); // comment this line when the device is not connected with the USB cable to the computer
     if (!IMU.begin()) {
         Serial.println("Failed to initialize IMU!");
         while (1000);
     }
     if (!SD.begin(sdChipSelect)) {
-          Serial.println("Card failed, or not present");
-          while (1000);
+        Serial.println("Card failed, or not present");
+        while (1000);
     }
+    if (!APDS.begin()) {
+       Serial.println("Error initializing APDS9960 sensor.");
+       while (1000); // Stop forever
+    }    
+    pinMode(ledPin, OUTPUT);
     //remove files on card
     for (byte i=0;i<=10;i++) {
         SD.remove(String(i) + ".csv");
     }
-    datafile = SD.open("1.csv", FILE_WRITE);
-    // print CSV header
-    Serial.println("Waiting for gesture nr 1");
-    print("aX,aY,aZ,gX,gY,gZ\n");
+    prepareNextFile();
 }
 
 void loop() {
     float aX, aY, aZ, gX, gY, gZ;
-  
+
     // wait for significant motion
     while (samplesRead == numSamples) {
         if (!IMU.accelerationAvailable()) {
@@ -62,10 +73,11 @@ void loop() {
         IMU.readAcceleration(aX, aY, aZ);
         // sum up the absolutes
         float aSum = fabs(aX) + fabs(aY) + fabs(aZ);
- 
+        processGesture();
         // if it's above the threshold reset the sample read count
         if (aSum >= accelerationThreshold) {
             samplesRead = 0;
+            digitalWrite(ledPin, HIGH);
             break;
         }        
     }
@@ -76,14 +88,16 @@ void loop() {
         if (!(IMU.accelerationAvailable() && IMU.gyroscopeAvailable())) {
             break;
         }
+        processGesture();
         IMU.readAcceleration(aX, aY, aZ);
         IMU.readGyroscope(gX, gY, gZ);
         samplesRead++;
         print(String(aX, 3) + "," + String(aY, 3) + "," + String(aZ, 3) + "," + String(gX, 3) + "," + String(gY, 3) + "," + String(gZ, 3) + "\n");
-        if (samplesRead == numSamples) { // if nr of samplex is aquired print a newline
+        if (samplesRead == numSamples) { // if nr of samplex is aquired print a newline and flush to sd card
             print("\n");
             flushToSdCard();
-            writeOnNextFile();
+            gestureNr++;
+            digitalWrite(ledPin, LOW);
             Serial.println("Waiting for gesture nr " + String(gestureNr));            
         }
     }   
@@ -91,19 +105,58 @@ void loop() {
 
 void print(String data) {    
     Serial.print(data);
-    printBuffer += data;
-    if (printBuffer.length() > 1000) {
-        flushToSdCard();
+    printBuffer[printBufferCursor] += data;
+    if (printBuffer[printBufferCursor].length() > 1000) {
+        printBufferCursor++;
     }
 }
 
 void flushToSdCard() {
-     datafile.print(printBuffer);
-     printBuffer = "";
+     for(byte i = 0;i<=printBufferCursor;i++) {
+        datafile.print(printBuffer[i]);
+     }
+     for(byte i = 0;i<=printBufferCursor;i++) {
+        printBuffer[i] = "";
+     }
+     printBufferCursor = 0;
 }
 
-void writeOnNextFile() {    
-    datafile.close();
-    gestureNr++;
-    datafile = SD.open(String(gestureNr) + ".csv", FILE_WRITE);
+/**
+ * If the file is open closes current datafile
+ * create new file 1.csv then 2.csv etc
+ * append CSV header to it
+ */
+void prepareNextFile() {    
+    Serial.println("Writng to file: " + String(fileNr) + ".csv");
+    if (datafile) {
+        Serial.println("closing datafile");
+        datafile.close();
+        delay(100);
+    }
+    datafile = SD.open(String(fileNr) + ".csv", FILE_WRITE);
+    delay(100);
+    print("aX,aY,aZ,gX,gY,gZ\n");
+    fileNr++;
+    gestureNr = 0;
+    Serial.println("Waiting for gesture nr " + String(gestureNr));  
+}
+
+/**
+ * Check if right gesture is available switch to the next file
+ * also flashes the led two times
+ */
+void processGesture() {
+    if (!APDS.gestureAvailable()) {
+        return;
+    }
+    if (APDS.readGesture() == GESTURE_RIGHT) {
+        digitalWrite(ledPin, HIGH);
+        delay(150);
+        digitalWrite(ledPin, LOW);
+        delay(150);
+        digitalWrite(ledPin, HIGH);
+        delay(300);
+        digitalWrite(ledPin, LOW);        
+        prepareNextFile();
+    }
 }

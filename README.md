@@ -356,7 +356,7 @@ Change the topic to a different name both in the arduino sketch and in HASS
 
 - work in progress -
 
-To train use gesture_capture sketch, the sketch uses a SD card reader to save each gesture in a file on the SD car: 1.csv, 2.csv etc
+To train use gesture_capture sketch, the sketch uses a SD card reader to save each gesture in a file on the SD card: 1.csv, 2.csv etc
 
 This sketch recognizes gestures using Tesorflow lite for microcontrollers, still work in progress.
 
@@ -418,8 +418,10 @@ For instalation in Arduino IDE follow the steps from /boards/nodemcu: https://gi
 
 ## Esp32 camera
 ![esp32-camera](https://github.com/danionescu0/arduino/blob/master/boards/esp32-camera.jpg)
+
 Instalation in Arduino IDE: https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-mac-and-linux-instructions/
 
 ## Arduino Nano 33 BLE Sense
-![Arduino-nano-33-ble-sense](https://github.com/danionescu0/arduino/blob/master/boards/arduino-nano-33-ble-sense.jpg)
+![Arduino-nano-33-ble-sense](https://github.com/danionescu0/arduino/blob/master/boards/arduino-nano-33-ble-sense.png)
+
 Overview: https://gilberttanner.com/blog/arduino-nano-33-ble-sense-overview
