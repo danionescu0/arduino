@@ -41,7 +41,7 @@ File datafile;
 
 void setup() {
     Serial.begin(9600);
-    //while (!Serial); // comment this line when the device is not connected with the USB cable to the computer
+    while (!Serial); // comment this line when the device is not connected with the USB cable to the computer
     if (!IMU.begin()) {
         Serial.println("Failed to initialize IMU!");
         while (1000);
