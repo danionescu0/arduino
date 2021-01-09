@@ -352,15 +352,53 @@ Troubleshooting:
 - if you're using the free MQTT server from above and your're getting noise it means some one else it's using the topic.
 Change the topic to a different name both in the arduino sketch and in HASS
 
+###  Gesture capture
+
+Uses the on-board IMU to start reading acceleration and gyroscope
+data from on-board IMU and prints it to the Serial Monitor for one second
+when the significant motion is detected, it also logs the data to a SD card
+
+Saves each gesture data to a SD card in a separate file "1.csv", "2.csv" etc
+based on example from https://github.com/arduino/ArduinoTensorFlowLiteTutorials
+To record the next gesture swipe right with your hand in front of the board, it uses
+the on board gesture detector to detect GESTURE_RIGHT and to record in the next csv file
+
 ### Gesture classifier
 
-- work in progress -
+Detects gestures that wore previously trained with gesture_capture.ino
+After an accelerationThreshold is reached, the sketch begin recording numSamples (119)
+and then feeds in into TensorFlowLite to predict the gesture.
 
-To train use gesture_capture sketch, the sketch uses a SD card reader to save each gesture in a file on the SD card: 1.csv, 2.csv etc
+The LED is used to signal that the sketch is recording a gesture
+If you want to use your own trained data, replace #include "digits_model.h" with your own, then replace const char* GESTURES[] 
+with your own trained gestures
+                          
+Arduino IDE vs: 1.8.12
 
-This sketch recognizes gestures using Tesorflow lite for microcontrollers, still work in progress.
+Libraries: 
 
-Will use BLE to transmit data about the gesture. 
+* Arduino_LSM9DS1 (version 1.0.0)
+
+* TensorFlowLite (version 2.1.0 ALPHA precompiled)
+
+*ArduinoBLE (version 1.1.3)
+
+Board version in arduino IDE:
+
+Arduino mbed-enabled board vs 1.1.6 (tested with this version, does not work with other versions)
+
+PINOUT
+
+*LED
+
+D2     -  pin through a 220ohms resistor
+
+GND    -  GND
+
+Trained models:
+digits_model.h -> uses gestures 0,1,2,3,4 (draw it in the air)
+
+remote1.mode.h -> uses gestures cw,ccw,fwd (clockwise, counter clockwise, forward in the air)
 
 # Libraries
 

@@ -1,5 +1,33 @@
+/**
+ * Detects gestures that wore previously trained with gesture_capture.ino
+ * After an accelerationThreshold is reached, the sketch begin recording numSamples (119)
+ * and then feeds in into TensorFlowLite to predict the gesture.
+ * The LED is used to signal that the sketch is recording a gesture
+ * If you want to use your own trained data, replace #include "digits_model.h" with your own, then replace const char* GESTURES[] 
+ * with your own trained gestures
+ *                           
+ * Arduino IDE vs: 1.8.12
+ * 
+ * Libraries: 
+ * Arduino_LSM9DS1 (version 1.0.0)
+ * TensorFlowLite (version 2.1.0 ALPHA precompiled)
+ * ArduinoBLE (version 1.1.3)
+ * 
+ * Board version in arduino IDE:
+ * Arduino mbed-enabled board vs 1.1.6 (tested with this version, does not work with other versions)
+ * 
+ * PINOUT
+ * 
+ * LED
+ * D2     -  pin through a 220ohms resistor
+ * GND    -  GND
+ * 
+ * Trained models:
+ * digits_model.h -> uses gestures 0,1,2,3,4 (draw it in the air)
+ * remote1.mode.h -> uses gestures cw,ccw,fwd (clockwise, counter clockwise, forward in the air)
+ */
 #include <Arduino_LSM9DS1.h>
-
+#include <ArduinoBLE.h>
 #include <TensorFlowLite.h>
 #include <tensorflow/lite/micro/all_ops_resolver.h>
 #include <tensorflow/lite/micro/micro_error_reporter.h>
@@ -7,7 +35,7 @@
 #include <tensorflow/lite/schema/schema_generated.h>
 #include <tensorflow/lite/version.h>
 
-#include "model.h"
+#include "remote1_model.h"
 
 const float accelerationThreshold = 1.9; // threshold of significant in G's
 const int numSamples = 119;
@@ -17,34 +45,31 @@ int samplesRead = numSamples;
 
 // global variables used for TensorFlow Lite (Micro)
 tflite::MicroErrorReporter tflErrorReporter;
-
-// pull in all the TFLM ops, you can remove this line and
-// only pull in the TFLM ops you need, if would like to reduce
-// the compiled size of the sketch.
 tflite::AllOpsResolver tflOpsResolver;
 
 const tflite::Model* tflModel = nullptr;
 tflite::MicroInterpreter* tflInterpreter = nullptr;
 TfLiteTensor* tflInputTensor = nullptr;
 TfLiteTensor* tflOutputTensor = nullptr;
-
-// Create a static memory buffer for TFLM, the size may need to
-// be adjusted based on the model you are using
 constexpr int tensorArenaSize = 8 * 1024;
 byte tensorArena[tensorArenaSize];
 
+BLEService gestureService("19B10000-E8F2-537E-4F6C-D104768A1214"); 
+// BLE LED Switch Characteristic - custom 128-bit UUID, read 
+BLEByteCharacteristic gestureCharacteristic("19B10001-E8F2-537E-4F6C-D104768A1214", BLERead | BLENotify);
+BLEDevice centralBLE;
+
 // array to map gesture index to a name
 const char* GESTURES[] = {
-  "cw", "ccw", "fwd" // classify digits 0 to 4 written in the air from top right to bottom left
+  "cw", "ccw", "fwd" 
 };
 
 #define NUM_GESTURES (sizeof(GESTURES) / sizeof(GESTURES[0]))
 
+
 void setup() {
     Serial.begin(9600);
-    while (!Serial); // comment this line if you're running without the USB cable
-  
-    // initialize the IMU
+    while (!Serial); // comment this line if you're running without the USB cable  
     if (!IMU.begin()) {
         Serial.println("Failed to initialize IMU!");
         while (1);
@@ -53,10 +78,8 @@ void setup() {
     // print out the samples rates of the IMUs
     Serial.print("Accelerometer sample rate = ");
     Serial.print(IMU.accelerationSampleRate());
-    Serial.println(" Hz");
     Serial.print("Gyroscope sample rate = ");
     Serial.print(IMU.gyroscopeSampleRate());
-    Serial.println(" Hz");
     Serial.println();
   
     // get the TFL representation of the model byte array
@@ -65,24 +88,22 @@ void setup() {
         Serial.println("Model schema mismatch!");
         while (1);
     }
-    Serial.println("1");
     // Create an interpreter to run the model
     tflInterpreter = new tflite::MicroInterpreter(tflModel, tflOpsResolver, tensorArena, tensorArenaSize, &tflErrorReporter);
-      Serial.println("2");
     // Allocate memory for the model's input and output tensors
     tflInterpreter->AllocateTensors();
-      Serial.println("3");
     // Get pointers for the model's input and output tensors
     tflInputTensor = tflInterpreter->input(0);
     tflOutputTensor = tflInterpreter->output(0);
-        Serial.println("4");
     pinMode(ledPin, OUTPUT);
+    initBLE();
     Serial.println("finished initialization");
 }
 
 void loop() {
+  //accept BLE connection
+  centralBLE = BLE.central();
   float aX, aY, aZ, gX, gY, gZ;
-
   // wait for significant motion
   while (samplesRead == numSamples) {
       if (!IMU.accelerationAvailable()) {
@@ -129,13 +150,45 @@ void loop() {
               while (1);
               return;
           }
-          // Loop through the output tensor values from the model
-          for (int i = 0; i < NUM_GESTURES; i++) {
-              Serial.print(GESTURES[i]);
-              Serial.print(": ");
-              Serial.println(tflOutputTensor->data.f[i], 6);
-          }
-          Serial.println();
+          transmitData();
       }    
   }
+}
+
+void transmitData() {
+    // Loop through the output tensor values from the model
+    int maxPosition = 0;
+    float maxValue = 0;
+    for (int i = 0; i < NUM_GESTURES; i++) {
+        Serial.print(GESTURES[i]);Serial.print(": ");
+        Serial.println(tflOutputTensor->data.f[i], 6);
+        if (maxValue < tflOutputTensor->data.f[i]) {
+            maxValue = tflOutputTensor->data.f[i];
+            maxPosition = i;
+        }
+    }
+    Serial.println("Highest probability:");
+    Serial.print(maxPosition);Serial.print(": ");
+    Serial.println(maxValue, 6);    
+    Serial.println();
+    if (centralBLE) {    
+        if (centralBLE.connected()) {
+           gestureCharacteristic.writeValue(maxPosition);
+        }
+    }
+}
+
+void initBLE() {
+    if (!BLE.begin()) {
+        Serial.println("starting BLE failed!");
+        while (1);
+    }
+    // set advertised local name and service UUID:
+    BLE.setLocalName("GESTURE");
+    BLE.setAdvertisedService(gestureService);
+    gestureService.addCharacteristic(gestureCharacteristic);
+    BLE.addService(gestureService);
+    // set the initial value for the characeristic:
+    gestureCharacteristic.writeValue(0); 
+    BLE.advertise(); 
 }

@@ -4,6 +4,8 @@
 *  when the significant motion is detected, it also logs the data to a SD card
 *  Saves each gesture data to a SD card in a separate file "1.csv", "2.csv" etc
 *  based on example from https://github.com/arduino/ArduinoTensorFlowLiteTutorials
+*  To record the next gesture swipe right with your hand in front of the board, it uses
+*  the on board gesture detector to detect GESTURE_RIGHT and to record in the next csv file
 *  
 * PINOUT
 * 
